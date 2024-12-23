@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIENDA LA 33</title>
+    <style>
+        :root {
+            --primary: #fbbf24;
+            --primary-dark: #f59e0b;
+            --text: #ffffff;
+            --bg-overlay: rgba(0, 0, 0, 0.75);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: var(--text);
+            background: url('https://images.unsplash.com/photo-1597290282695-edc43d0e7129?auto=format&fit=crop&q=80') center/cover fixed;
+        }
+
+        .overlay {
+            min-height: 100vh;
+            background: var(--bg-overlay);
+            backdrop-filter: blur(8px);
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            font-size: 3rem;
+            color: var(--primary);
+            font-weight: bold;
+            letter-spacing: 0.1em;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            border: 2px solid var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .product-name {
+            color: var(--primary);
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 0.5rem;
+            background: var(--primary);
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .cart {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .cart-title {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-total {
+            text-align: right;
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+
+        .age-verification {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+
+        .age-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        .age-warning {
+            font-size: 0.875rem;
+            opacity: 0.7;
+            margin-top: 1rem;
+        }
+
+        .delivery-info {
+            margin: 1.5rem 0;
+        }
+
+        .delivery-input {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .delivery-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <div class="container">
+            <header class="header">
+                <h1 class="logo">TIENDA LA 33</h1>
+            </header>
+
+            <div class="age-verification" id="ageVerification">
+                <p>¡Pareces muy joven! ¿Eres mayor de 18 años?</p>
+                <div class="age-buttons">
+                    <button class="btn" onclick="verifyAge(true)">Soy mayor de 18 años</button>
+                    <button class="btn" style="background: #ef4444" onclick="verifyAge(false)">Soy menor de edad</button>
+                </div>
+                <p class="age-warning">Prohibido el expendio de licores a menores de edad. Artículo 17, Ley de 1986.</p>
+                <p class="age-warning">El exceso de alcohol es perjudicial para la salud.</p>
+            </div>
+
+            <div class="products">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&q=80&w=300&h=300" alt="Cerveza Águila" class="product-image">
+                    <h2 class="product-name">Cerveza Águila</h2>
+                    <p class="product-price">COP$3,000</p>
+                    <button class="btn" onclick="addToCart('Águila', 3000)" disabled>Agregar al carrito</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1613254025696-6f80f3172937?auto=format&fit=crop&q=80&w=300&h=300" alt="Cerveza Corona" class="product-image">
+                    <h2 class="product-name">Cerveza Corona</h2>
+                    <p class="product-price">COP$3,500</p>
+                    <button class="btn" onclick="addToCart('Corona', 3500)" disabled>Agregar al carrito</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1618885472179-5e474019f2a9?auto=format&fit=crop&q=80&w=300&h=300" alt="Club Colombia Roja" class="product-image">
+                    <h2 class="product-name">Club Colombia Roja</h2>
+                    <p class="product-price">COP$4,000</p>
+                    <button class="btn" onclick="addToCart('Club Colombia', 4000)" disabled>Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="cart">
+                <h2 class="cart-title">Carrito de compras</h2>
+                <div id="cartItems"></div>
+
+                <div class="delivery-info">
+                    <input type="text" class="delivery-input" placeholder="Ingresa tu dirección de entrega">
+                    <label class="delivery-checkbox">
+                        <input type="checkbox" onchange="updateTotal()">
+                        <span>¿Deseas agregar domicilio (COP$3,500)?</span>
+                    </label>
+                </div>
+
+                <p class="cart-total" id="cartTotal">Total: COP$0</p>
+                <button class="btn" onclick="checkout()" id="checkoutBtn" disabled>Pagar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+        let isAdult = false;
+        const DELIVERY_COST = 3500;
+
+        function verifyAge(verified) {
+            isAdult = verified;
+            document.getElementById('ageVerification').style.display = 'none';
+            const buttons = document.querySelectorAll('.products button');
+            buttons.forEach(btn => btn.disabled = !verified);
+            if (!verified) {
+                cart = [];
+                updateCart();
+            }
+        }
+
+        function addToCart(name, price) {
+            if (!isAdult) return;
+            const item = cart.find(i => i.name === name);
+            if (item) {
+                item.quantity++;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            updateCart();
+        }
+
+        function removeFromCart(name) {
+            cart = cart.filter(item => item.name !== name);
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <span>${item.name} x ${item.quantity}</span>
+                    <span>COP$${(item.price * item.quantity).toLocaleString()}</span>
+                    <button class="btn" onclick="removeFromCart('${item.name}')">Eliminar</button>
+                </div>
+            `).join('');
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const includeDelivery = document.querySelector('.delivery-checkbox input').checked;
+            const total = subtotal + (includeDelivery ? DELIVERY_COST : 0);
+            document.getElementById('cartTotal').textContent = `Total: COP$${total.toLocaleString()}`;
+            document.getElementById('checkoutBtn').disabled = cart.length === 0;
+        }
+
+        function checkout() {
+            if (!isAdult || cart.length === 0) return;
+            alert('¡Gracias por tu compra!');
+            cart = [];
+            updateCart();
+            document.querySelector('.delivery-input').value = '';
+            document.querySelector('.delivery-checkbox input').checked = false;
+        }
+    </script>
+</body>
+</html>
